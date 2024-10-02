@@ -9,7 +9,7 @@ const courseRoutes = require("./routes/Course");
 const database = require("./config/database");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const {cloudinaryConnect } = require("./config/cloudinary");
+const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 const dotenv = require("dotenv");
 
@@ -23,20 +23,22 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(
-	fileUpload({
-		useTempFiles:true,
-		tempFileDir:"/tmp",
-	})
-)
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp",
+  })
+);
 //cloudinary connection
 cloudinaryConnect();
 
 // CORS setup
-app.use(cors({
-    origin: 'https://code-infinity.vercel.app', // Restrict to specific origin
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allow specific methods
-    credentials: true // Allow credentials
-}));
+app.use(
+  cors({
+    origin: [process.env.URL], // Restrict to specific origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow specific methods
+    credentials: true, // Allow credentials
+  })
+);
 
 //routes
 app.use("/api/v1/auth", userRoutes);
@@ -46,16 +48,15 @@ app.use("/api/v1/payment", paymentRoutes);
 
 // // Handle preflight requests for all routes
 app.options("*", cors()); // Allow CORS preflight for all routes
-//def route	
+//def route
 
 app.get("/", (req, res) => {
-	return res.json({
-		success:true,
-		message:'Your server is up and running....'
-	});
+  return res.json({
+    success: true,
+    message: "Your server is up and running....",
+  });
 });
 
 app.listen(PORT, () => {
-	console.log(`App is running at ${PORT}`)
-})
-
+  console.log(`App is running at ${PORT}`);
+});
