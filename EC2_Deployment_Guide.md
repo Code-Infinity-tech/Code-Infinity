@@ -59,16 +59,29 @@ This guide explains how to deploy the `Code_Infinity_Backend` on an AWS EC2 inst
 ### 4. Configuring Environment Variables
 
 1. **Set Environment Variables**:
+
    ```bash
-   export RAZORPAY_KEY="your_razorpay_key"
-   export RAZORPAY_KEY_SECRET="your_razorpay_key_secret"
-   export MONGODB_URL="your_mongodb_url"
+   export CLOUD_NAME="your_cloudinary_cloud_name"
+   export API_KEY="your_cloudinary_api_key"
+   export API_SECRET="your_cloudinary_api_secret"
+   export URL="your_frontend_url"
+   export FOLDER_NAME="your_cloudinary_folder_name"
+   export MONGODB_URL="your_mongodb_connection_string"
    export JWT_SECRET="your_jwt_secret"
-   export FOLDER_NAME="your_folder_name"
-   export CLOUD_NAME="your_cloud_name"
-   export API_SECRET="your_api_secret"
-   export API_KEY="your_api_key"
+   export RAZORPAY_KEY="your_razorpay_key"
+   export RAZORPAY_SECRET="your_razorpay_secret"
+   export MAIL_USER="your_email_address"
+   export MAIL_PASS="your_email_password"
+   export MAIL_HOST="your_email_smtp_host"
    ```
+
+2. **Note on Persistent Environment Variables**:
+   To make these environment variables persistent across sessions, consider adding them to a `.env` file in your project root or to your shell profile (`~/.bashrc` or `~/.bash_profile`).
+
+3. **Security Considerations**:
+   - Never commit actual secret values to version control.
+   - Use environment-specific configuration management for different deployment environments.
+   - Consider using AWS Secrets Manager or similar services for managing sensitive information in production.
 
 ### 5. Running the Application
 
@@ -105,4 +118,3 @@ This guide explains how to deploy the `Code_Infinity_Backend` on an AWS EC2 inst
 
 - **Persistent Environment Variables**: To make environment variables persistent across sessions, consider adding them to a `.env` file or your shell profile (`~/.bashrc` or `~/.bash_profile`).
 - **Monitoring**: Keep an eye on resource usage, and scale up the instance if necessary.
-
